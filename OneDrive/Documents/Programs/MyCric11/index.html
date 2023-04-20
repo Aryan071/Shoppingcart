@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div id="fantasyCricket">
+        <div id="toss">
+            <br>
+            <p>Let's toss</p><br><br>
+            Team 1: <input type="text" name="team1Name" id="team1Name" cols="80" rows="10"
+                placeholder="Enter The Team 1 Name"></input type="text"> <br><br>
+            Team 2: <input type="text" name="team2Name" id="team2Name" cols="50" rows="10"
+                placeholder="Enter The Team 2 Name"></input type="text"><br><br>
+
+            <input type="button" class="btns" id="tossButn" value="Toss" onclick="printTossWinner()"><br><br>
+
+            <textarea name="" id="tossWinner" cols="30" rows="1" readonly="'true"></textarea><br><br>
+            <input type="button" class="btns" id="butn1" value="Select Team" onclick="displayOption(1)">
+            <br>
+        </div><br>
+
+
+        <div id="team1Selection">
+
+            <div>
+                Player selection for team <span id="winner"></span><br>
+            </div> <br><br>
+            <select name="team1Selection" id="t1Sel"></select><br><br>
+            <input type="button" class="btns" value="Select player" id="butn7" onclick="playerSelector()"><br><br>
+            <div id="count">
+                Player count : <span id="playerCount">0</span>
+            </div>
+            <div id="count">
+                Credit: <span id="playerCredit">0</span><br><br>
+            </div> <br><br>
+
+            <select name="" id="selected"></select><br><br>
+
+            <input type="button" class="btns" value="Remove player" id="butn3" onclick="playerRemover();">
+
+            
+            <input type="button" class="btns" id="teamSaver" value="Save the team" onclick="displayRemainingPlayers(0)">
+            <input type="button" id='loadCap' class="btns" value="Save the team" onclick="loadCaptainSelection()">
+        </div><br><br>
+
+
+        <div id="team2Selection">
+            <div>
+                Player selection for team <span id="loser"></span><br>
+            </div> <br><br>
+            <select name="team2Selection" id="t2Sel"></select><br><br>
+            <input type="button" class="btns" value="Select player" id="butn4"
+                onclick="displaySelectedPlayersForTossLoser();"><br><br>
+            <div id="count">
+                Player count : <span id="playerCount2">0</span>
+            </div>
+            <div id="count">
+                Credit count: <span id="playerCredit2">0</span><br><br>
+            </div> <br><br>
+
+            <select name="" id="selected2"></select><br><br>
+
+            <input type="button" class="btns" value="Remove player" id="butn5"
+                onclick="removeOptionsForTossLoser();"><br><br>
+
+            <input type="button" class="btns" value="Save the team" onclick="saveTossLosersTeam();">
+
+        </div>
+
+
+        <div id="captainSelection">
+            <div id="capViceCapDiv">
+                <div id="captainT1">
+                    <select name="" id="winnersCap">
+
+                    </select>
+                </div>
+                <div id="displayer">
+
+                    <div id="captapins">
+                        <input type="button" class="btns" class="capBtn" id="captainBtn" value="Select Captain"
+                            onclick="assignCaptains()"><br><br>
+                        <label for="t1Cap" id="t1CapLabel"></label>
+                        <textarea name="" id="t1Cap" cols="30" rows="1" readonly="'true"></textarea><br><br>
+                        <label for="t2Cap" id="t2CapLabel"></label>
+                        <textarea name="" id="t2Cap" cols="30" rows="1" readonly="'true"></textarea><br><br>
+                    </div>
+
+                    <div id="viseCaptains">
+                        <input type="button" class="btns" class="capBtn" id="viceCaptainBtn" value="Select Vice-Captain"
+                            onclick="assignViceCaptains()"><br><br>
+
+                        <label for="t1ViceCap" id="t1ViceCapLabel"></label>
+                        <textarea name="" id="t1ViceCap" cols="30" rows="1" readonly="'true"></textarea><br><br>
+
+                        <label for="t2ViceCap" id="t2ViceCapLabel"></label>
+                        <textarea name="" id="t2ViceCap" cols="30" rows="1" readonly="'true"></textarea><br><br>
+                    </div>
+
+                    <input type="button" class="btns" class="capBtn" value="Reset" onclick="resetCaptainSelection()">
+                </div>
+
+                <div id="captainT2">
+                    <select name="" id="losersCap">
+                    </select>
+                </div>
+            </div>
+            <input type="button" value="Start the match" id="startMatch" onclick="loadplaygame(1)">
+        </div>
+
+        <div id="cricketTime">
+            <div id="upper">
+
+                <div id="playgame">
+                    <textarea name="" id="battingTeam" cols="30" rows="10" readonly="true"></textarea>
+                    <textarea name="" id="bowlingTeam" cols="30" rows="10" readonly="true"></textarea><br><br>
+                    <textarea name="" id="playingBatsman" cols="30" rows="10" readonly="true"></textarea>
+                    <textarea name="" id="playingBowler" cols="30" rows="10" readonly="true"></textarea><br><br>
+                    <textarea name="" id="tossWinnerFantasyPoint" cols="30" rows="10" readonly="true"></textarea>
+                    <textarea name="" id="tossLoserFantasyPoint" cols="30" rows="10" readonly="true"></textarea><br><br>
+                    <button class="button-27" role="button" id="hitBtn" data-property="1"
+                        onclick="playBtnListener(this.dataset.property)">Hit</button><br>
+                    <input type="button" value="Next" id="nextBtn" onclick="loadplaygame(-1)">
+                    <input type="button" value="Result" id="resultBtn" onclick="displayResult()"><br>
+                    <textarea name="" id="overs" cols="30" rows="10" readonly="true"></textarea>
+                    <textarea name="" id="score" cols="30" rows="10" readonly="true"></textarea>
+
+                </div>
+                <div id=" Details"><br>
+                    <div name="" id="commentators">
+                        <ul id="commentaryList"></ul>
+                    </div><br>
+                    <div name="" id="shotType"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="result">
+            <div id="matchWinner"></div><br>
+            <div id="teamContainer">
+                <div id="team1">
+                    <label for="team1">Team Name:</label>
+                    <div id="name1"></div><br>
+                    <label for="fantasyPoints1">Fantasy Points:</label>
+                    <div id="fantasyPoints1"></div><br>
+                    <label for="score1">Score :</label>
+                    <div id="score1"></div><br>
+                    <label for="batsman1">Batsman's Score :</label>
+                    <div id="batsman1"></div><br>
+                    <label for="bowler1">Bowlers's Score</label>
+                    <div id="bowler1"></div>
+                </div>
+                <div id="team2">
+                    <label for="team2">Team Name:</label>
+                    <div id="name2"></div><br>
+                    <label for="fantasyPoints2">Fantasy Points:</label>
+                    <div id="fantasyPoints2"></div><br>
+                    <label for="score2">Score :</label>
+                    <div id="score2"></div><br>
+                    <label for="batsman2">Batsman's Score :</label>
+                    <div id="batsman2"></div><br>
+                    <label for="bowler2">Bowlers's Score</label>
+                    <div id="bowler2"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="tosswinner.js"></script>
+    <script src="validation.js"></script>
+    <script src="team1Selection.js"></script>
+    <script src="teamSelection.js"></script>
+    <script src="team2Selection.js"></script>
+    <script src="Selection.js"></script>
+    <script src="startgame.js"></script>
+    <script src="finalresult.js"></script>
+</body>
+
+</html>

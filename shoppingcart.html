@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <form name="form" action="">
+      <h2>Welcome to the shop</h2>
+      <h3>Shop your goodies and enjoy!!!!</h3>
+
+      <select name="shop" id="productItem">
+        <option value="laptop" id="laptop">Laptop(10000)</option>
+        <option value="mobile" id="mobile">Mobile(20000)</option>
+        <option value="bag" id="bag">Bag(30000)</option>
+        <option value="earphone" id="earphone">Earphone(40000)</option>
+        <option value="playstation" id="playstation">
+          Playstation(50000)
+        </option></select
+      ><br /><br />
+
+      Quantity:<input type="number" name="quantity" id="quantity"  value="1"/>
+      <br /><br />
+      <input type="button" value="Add to cart" onclick="shopping()" />
+      <br /><br />
+      <textarea name="orderinfo" id="" cols="50" rows="10"></textarea><br />
+
+      <h3>Enter your details</h3>
+
+      First Name: <input type="text" name="firstname" id="" /> Last Name:
+      <input type="text" name="lastname" id="" /><br />
+      <br />
+      Street Address: <input type="text" name="address" id="" /> City:
+      <input type="text" name="city" id="" /><br /><br />
+      State: <input type="text" name="state" id="" /> Zip Code:
+      <input type="number" name="code" id="" /><br /><br />
+      Email: <input type="email" name="email" id="" /><br /><br />
+
+      <input type="button" value="DisplayInfo" onclick="displayOrder()" on />
+      <br />
+      <br />
+      <textarea name="fullinfo" id="" cols="50" rows="10"></textarea><br /><br>
+      <input type="button" value="First" onclick="showfirst()" />
+      <input type="button" value="Previous" onclick="showprevious()" />
+      <input type="button" value="Next" onclick="shownext()" />
+      <input type="button" value="Last" onclick="showlast()" />
+     
+      <input
+        type="button"
+        value="Go To"
+        onclick="goto1()";
+      /> 
+      
+      <input type="text" name="goto" id="goto" size="3"><br>
+
+      <textarea name="history" id="history" cols="50" rows="10"></textarea>
+
+    <script>
+      var BR = '<br />'
+      var nl = '\n'
+      let price = []
+      let selectItem = document.getElementById('productItem')
+      let myItem
+      let priceItem = 0
+      let total1 = 0
+      let total = 0
+      let element
+      let itemarray = []
+      var quantity
+      var currentpos = 1
+      let data;
+
+      const obj = {
+        laptop: 10000,
+        mobile: 20000,
+        bag: 30000,
+        earphone: 40000,
+        playstation: 50000
+      }
+
+      function shopping() {
+        myItem = selectItem.value
+        // currentpos++
+
+        for (let key in obj) {
+          if (key == myItem) {
+            element = obj[key]
+          }
+        }
+        priceItem = element
+
+        quantity = document.getElementById('quantity').value
+        if(quantity ==""){
+          alert("Quantity must be atleast 1!!!")
+          return
+        }
+        quantity = parseInt(quantity)
+        if(quantity<=0){
+          alert("Quantity must be atleast 1!!!")
+          return
+        }
+        total = priceItem * quantity
+        
+       
+
+        let objarray = {
+          item_name: myItem,
+          item_quantity: quantity,
+          item_total: total
+        }
+
+        if (itemarray.length == 0) {
+          itemarray.push(objarray)
+        }
+        let found = false
+        for (let index = 0; index < itemarray.length; index++) {
+          let data = itemarray[index]
+          if (data.item_name == objarray.item_name) {
+            found = true
+            data.item_quantity = quantity
+            data.item_total = data.item_quantity * priceItem
+            total1 = data.item_total;
+            
+          }
+          else{
+            total1 += total
+          }
+        }
+        if (!found) {
+          itemarray.push(objarray)
+        }
+
+       
+        
+        //   let a = itemarray.map(key => {
+        //     return `Product Name:  ${key.item_name}
+        // Quantity: ${key.item_quantity}
+        // Total:${key.item_total}`+ nl
+        //   })
+
+        // document.form.orderinfo.value +=
+        //   'Product Name: ' +
+        //   myItem +
+        //   nl +
+        //   'Quantity: ' +
+        //   quantity +
+        //   nl +
+        //   'Total: ' +
+        //   total +
+        //   nl +
+        //   nl
+        document.form.orderinfo.value = display()
+        // for (let key in obj) {
+
+        //   if (key == myItem) {
+        //    myItem[quantity]++;
+        //    console.log(myItem[quantity]);
+
+        //   }
+
+        // }
+      }
+      function display() {
+        data = ''
+
+        for (let i = 0; i <= itemarray.length - 1; i++) {
+          let obj = itemarray[i]
+          data +=
+            'Product Name: ' +
+            obj.item_name +
+            nl +
+            'Quantity: ' +
+            obj.item_quantity +
+            nl +
+            'Total: ' +
+            obj.item_total +
+            nl +
+            nl
+        }
+        return data
+      }
+
+      function empty() {
+        document.form.orderinfo.value = ''
+        total1 = 0
+        
+        itemarray = []
+        // for (let index = 0; index < itemarray.length; index++) {
+        //   itemarray.pop();
+        //   if(itemarray[index] != 0)
+        //   itemarray.pop();
+        // }
+
+        document.form.firstname.value = "";
+        document.form.lastname.value = "";
+        document.form.address.value = "";
+        document.form.city.value = "";
+        document.form.state.value = "";
+        document.form.code.value = "";
+        document.form.email.value = "";
+        document.form.quantity.value = "";
+      }
+
+      let items = [];
+      
+
+      
+
+      function displayOrder() {
+        let firstname = document.form.firstname.value
+        let lastname = document.form.lastname.value
+        let address = document.form.address.value
+        let city = document.form.city.value
+        let state = document.form.state.value
+        let zipcode = document.form.code.value
+        let email = document.form.email.value
+        let product = myItem
+
+        let object = {
+        user_firstname : document.form.firstname.value,
+        user_lastname : document.form.lastname.value,
+        user_address : document.form.address.value,
+        user_city : document.form.city.value,
+        user_state : document.form.state.value,
+        user_zipcode : document.form.code.value,
+        user_email : document.form.email.value,
+        user_product : myItem,
+        item_total1: total1,
+        item_array: itemarray,
+        
+
+      }
+
+      items.push(object);
+
+        // const obj1 = {
+        //   laptop: 10000,
+        //   mobile: 20000,
+        //   bag: 30000,
+        //   earphone: 40000,
+        //   playstation: 50000
+        // }
+
+        // let quantity = document.getElementById('quantity').value
+        // const objarray1 = {
+        //   item_name1: myItem,
+        //   item_quantity1: quantity,
+        //   item_total1: total
+        // }
+
+        // if (itemarray.length == 0) {
+        //   itemarray.push(objarray1)
+        // }
+
+        // for (let index = 0; index < itemarray.length; index++) {
+        //     let data = itemarray[index]
+        //     if (data.item_name1 == objarray1.item_name1) {
+        //       data.item_quantity1 = quantity
+        //       break
+        //     } else {
+        //       itemarray.push(objarray1)
+        //       break
+        //     }
+        //   }
+
+      
+        if(data == null){
+          alert("Please add order data first!!")
+          return
+        }
+        else if(firstname == "" || lastname == "" || email =="" || state == "" || address == "" || zipcode =="" || city == ""){
+          alert("Please enter all details!!")
+          return;
+        }
+        else{
+          document.form.fullinfo.value =
+          'Here are your order details: ' +
+          nl +
+          nl +
+          'Customer Name: ' +
+          firstname +
+          ' ' +
+          lastname +
+          nl +
+          'Your address: ' +
+          address +
+          nl +
+          'City Name: ' +
+          city +
+          nl +
+          'State Name: ' +
+          state +
+          nl +
+          'Zip code: ' +
+          zipcode +
+          nl +
+          'Your Email: ' + 
+          email +
+          nl + nl + "Your Order info: " + nl +
+          display() +
+          'Total Amount: ' +
+          total1 + 
+          nl +
+          'Thanks for placing your order!!!!';
+           empty();
+       
+        }
+        
+        
+
+        
+      }
+      
+      
+    function loadform(num){
+   let data1 = "";
+  for (let index = 0; index <  items[num].item_array.length; index++) {
+    
+    let data = items[num].item_array[index];
+    data1 += "Product name: " + data.item_name + nl + "Quantity: " 
+          + data.item_quantity+ nl + "Total: " + data.item_total + nl ;
+    
+  }
+    if(data == null){
+      alert("No data found!!");
+      return;
+    }
+  
+  document.form.history.value = 'Here are your order details: ' +
+          nl +
+          nl +
+          'Customer Name: ' +
+          items[num].user_firstname +
+          ' ' +
+          items[num].user_lastname +
+          nl +
+          'Your address: ' +
+          items[num].user_address +
+          nl +
+          'City Name: ' +
+          items[num].user_city +
+          nl +
+          'State Name: ' +
+          items[num].user_state +
+          nl +
+          'Zip code: ' +
+          items[num].user_zipcode +
+          nl +
+          'Your Email: ' + 
+          items[num].user_email +
+          nl + nl + "Your Order info: " + nl +  data1 + nl+ 'Total Amount: ' +items[num].item_total1 + nl +
+          'Thanks for placing your order!!!!';
+  
+    
+  // }
+}
+ 
+    
+  
+
+
+      
+
+  function showprevious(){
+        
+  if (currentpos > 0) {
+    currentpos--;
+    
+    loadform(currentpos);
+  }
+}
+
+function shownext() {
+  if (currentpos < items.length - 1) {
+    currentpos++;
+    
+    loadform(currentpos);
+  }
+}
+
+function showfirst(){
+  currentpos = 0;
+  loadform(currentpos);
+}
+
+function showlast(){
+  currentpos = items.length - 1;
+  loadform(currentpos);
+}
+
+      
+function goto1(){
+  currentpos = document.getElementById("goto").value;
+  if(currentpos>items.length - 1){
+    alert("No data found!!")
+    return;
+  }
+  else{
+    loadform(currentpos);
+  }
+  
+}
+      
+        
+
+          
+      
+    </script>
+  </body>
+</html>
